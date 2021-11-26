@@ -57,7 +57,7 @@ namespace Midgard.Collections
     //
     [DebuggerTypeProxy(typeof(StringKeyDictionary<>.HashtableDebugView))]
     [DebuggerDisplay("Count = {Count}")]
-    public class StringKeyDictionary<T> : IDictionary<string, T>, ICloneable
+    public class StringKeyDictionary<T> : IDictionary<string, T>, ICloneable, ICollection
     {
         /*
           This Hashtable uses double hashing.  There are hashsize buckets in the
@@ -321,12 +321,6 @@ namespace Midgard.Collections
             }
 
             return ht;
-        }
-
-        // Checks if this hashtable contains the given key.
-        public virtual bool Contains(ReadOnlySpan<char> key)
-        {
-            return ContainsKey(key);
         }
 
         // Checks if this hashtable contains an entry with the given key.  This is
@@ -645,11 +639,6 @@ namespace Midgard.Collections
         //private void Insert(ReadOnlySpan<char> key, T nvalue, bool add) => Insert(key.ToString(), nvalue, add);
         private void Insert(ReadOnlySpan<char> key, T nvalue, bool add)
         {
-            if (key == null)
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
-
             if (_count >= _loadsize)
             {
                 expand();
@@ -1150,17 +1139,8 @@ namespace Midgard.Collections
                 }
             }
 
-            public override bool Contains(ReadOnlySpan<char> key)
-            {
-                return _table.Contains(key);
-            }
-
             public override bool ContainsKey(ReadOnlySpan<char> key)
             {
-                if (key == null)
-                {
-                    throw new ArgumentNullException(nameof(key));
-                }
                 return _table.ContainsKey(key);
             }
 
@@ -1293,7 +1273,7 @@ namespace Midgard.Collections
             public abstract TReturn Current { get; }
 
 
-            object? IEnumerator.Current => Value;
+            object? IEnumerator.Current =>  this.Current;
 
             public object Clone() => MemberwiseClone();
 

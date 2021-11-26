@@ -7,4 +7,13 @@
 		<RootNamespace>Midgard.Collections</RootNamespace>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<PackageId>Midgard.Collections.StringKeyedDictionary</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageVersion>0.1</PackageVersion>
+		<Description>
+			A Dictionary that uses Strings as key and can accept ReadOnlySpan&lt;char&gt;
+		</Description>
+	</PropertyGroup>
+
 </Project>
